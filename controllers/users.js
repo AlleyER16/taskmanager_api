@@ -12,13 +12,13 @@ const add_user = async (req, res) => {
 
     const { Username } = req.body;
 
-    const username_used = users_model.find({ Username }).countDocuments()
-    if (username_used) res.status(StatusCodes.NOT_ACCEPTABLE).json({ message: "Username has been used" });
+    const username_used = await users_model.find({ Username }).countDocuments();
+    if (username_used) return res.status(StatusCodes.NOT_ACCEPTABLE).json({ message: "Username has been used" });
 
-    req.body.Avatar = get_random_avatar();
+    req.body.Avatar = await get_random_avatar();
 
     const user = await users_model.create(req.body);
-    if (!user) res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Error creating account. Try again" });
+    if (!user) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Error creating account. Try again" });
 
     try {
         

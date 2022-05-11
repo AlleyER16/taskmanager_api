@@ -8,7 +8,7 @@ const get_random_avatar = async () => {
 
     random_avatar_index = get_random_num(avatars.length);
 
-    return avatars[random_avatar_index]._id;
+    return avatars[random_avatar_index]._id.toString();
 
 }
 
