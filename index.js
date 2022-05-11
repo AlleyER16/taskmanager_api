@@ -1,17 +1,20 @@
 require("dotenv").config();
 
+require("express-async-errors");
+
 const express = require('express');
 const app = express();
 
+app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.json("Hell world");
+    res.json({message: "Hello world"});
 });
 
 
 const { users_router } = require("./routers");
 
-app.use("api/v1/users", users_router);
+app.use("/api/v1/users", users_router);
 
 
 const port = process.env.PORT || 3000;
